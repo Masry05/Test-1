@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateAllPagesState() {
         const allChecked = Array.from(pageCheckboxes).every(cb => cb.checked);
         const someChecked = Array.from(pageCheckboxes).some(cb => cb.checked);
-        
+
         allPagesCheckbox.checked = allChecked;
-        
+
         // Optional: formatting for indeterminate state if desired, but not strictly in image
         // allPagesCheckbox.indeterminate = someChecked && !allChecked;
     }
@@ -32,8 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Row click handler to toggle checkbox when clicking the text/row area
     rows.forEach(row => {
         row.addEventListener('click', (e) => {
-            // Prevent triggering twice if clicking directly on the checkbox
-            if (e.target.type === 'checkbox' || e.target.className === 'checkmark') {
+            // Prevent triggering twice if clicking:
+            // 1. Directly on the checkbox (native behavior)
+            // 2. On the label (native behavior via 'for' attribute)
+            const target = e.target;
+            if (target.type === 'checkbox' || target.className === 'checkmark' || target.tagName === 'LABEL') {
                 return;
             }
 
