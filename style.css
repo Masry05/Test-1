@@ -1,0 +1,188 @@
+:root {
+    --primary-yellow: #FFCE22;
+    --hover-yellow: #FFD84D;
+    --active-yellow: #E6B91E;
+    --checkbox-blue: #2469F6;
+    --checkbox-hover-border: #BCBCBC;
+    --checkbox-border: #E3E3E3;
+    --text-color: #1F2128;
+    --border-color: #EEEEEE;
+    --font-family: 'Montserrat', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #E5E5E5;
+    /* Light grey background from the design */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: #FFFFFF;
+    border-radius: 8px;
+    /* Slightly rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.05);
+    width: 370px;
+    padding: 10px 0;
+    /* Padding top/bottom */
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    /* Vertical spacing and side padding */
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+/* Hover effect on rows for better interactivity */
+.row:hover {
+    background-color: #F8F8F8;
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-color);
+    cursor: pointer;
+    flex-grow: 1;
+    /* Allow clicking anywhere on the text mostly */
+    user-select: none;
+}
+
+.checkbox-wrapper {
+    position: relative;
+    width: 24px;
+    /* Reduced specific size from image estimation */
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide the default checkbox */
+.custom-checkbox {
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+/* Custom Checkbox Design - State 1: Default Empty */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px;
+}
+
+/* State 2: Hover (Unchecked) - Grey ghost checkmark */
+.checkbox-wrapper:hover .custom-checkbox:not(:checked)~.checkmark {
+    border-color: #B0B0B0;
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4.5 9L13 1' stroke='%23E3E3E3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* State 3: Active (Unchecked) - Pressing/Focus ring + Darker Check */
+.custom-checkbox:not(:checked):active~.checkmark {
+    border-color: #B0B0B0;
+    box-shadow: 0 0 0 4px rgba(36, 105, 246, 0.1);
+    /* Soft blue ring */
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4.5 9L13 1' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    transform: scale(1);
+    /* Reset scale for this specific style if needed, or keep consistent */
+}
+
+/* State 5: Checked Default - Standard Blue */
+.custom-checkbox:checked~.checkmark {
+    background-color: var(--checkbox-blue);
+    border-color: var(--checkbox-blue);
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4.5 9L13 1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    box-shadow: 0 2px 4px rgba(36, 105, 246, 0.25);
+}
+
+/* State 4: Hover (Checked) - Darker Blue */
+.checkbox-wrapper:hover .custom-checkbox:checked~.checkmark {
+    background-color: #1854C9;
+    border-color: #1854C9;
+}
+
+/* Pressed State for Checked (Optional: subtle scale or ring) */
+.custom-checkbox:checked:active~.checkmark {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 4px rgba(36, 105, 246, 0.1);
+}
+
+/* Ensure no CSS after-element interferes */
+.checkmark:after {
+    display: none !important;
+}
+
+.divider {
+    height: 0.7px;
+    background-color: #E0E0E0;
+    /* Adjust margin to simple vertical spacing, layout handled by containers mostly */
+    margin: 10px 0;
+}
+
+.page-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.done-btn {
+    width: 340px;
+    height: 40px;
+    margin: 10px 15px 20px 15px;
+    /* Center with margins: (370-340)/2 = 15 */
+    background-color: var(--primary-yellow);
+    border: none;
+    border-radius: 4px;
+    padding: 0;
+    /* Centered by flex usually or line-height, but specific height set */
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 400;
+    color: #1F2128;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.05s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.done-btn:hover {
+    background-color: var(--hover-yellow);
+}
+
+.done-btn:active {
+    background-color: var(--active-yellow);
+    transform: translateY(1px);
+}
